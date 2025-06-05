@@ -1,14 +1,16 @@
 {
     "name": "proghasan/blade-form-validator",
     "description": "Laravel form validation",
-    "version": "v1.0.0",
     "type": "library",
+    "license": "MIT",
     "require": {
         "php": "^8.3.0",
-        "orchestra/testbench": "^10.3",
-        "illuminate/support": "^12.0"
+        "illuminate/support": "^12.0",
+        "orchestra/testbench": "^10.3"
     },
-    "license": "MIT",
+    "require-dev": {
+        "pestphp/pest": "^3.8"
+    },
     "autoload": {
         "psr-4": {
             "Proghasan\\BladeFormValidator\\": "src/"
@@ -19,15 +21,6 @@
             "Proghasan\\Tests\\": "tests/"
         }
     },
-    "authors": [
-        {
-            "name": "proghasan",
-            "email": "mohammaddothasan@gmail.com"
-        }
-    ],
-    "require-dev": {
-        "pestphp/pest": "^3.8"
-    },
     "extra": {
         "laravel": {
             "providers": [
@@ -35,6 +28,12 @@
             ]
         }
     },
+    "authors": [
+        {
+            "name": "proghasan",
+            "email": "mohammaddothasan@gmail.com"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
