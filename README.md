@@ -23,28 +23,45 @@ Require the package via Composer:
 composer require proghasan/blade-form-validator
 ```
 
-## Publish the config file (optional):
-
-```bash
-php artisan vendor:publish --tag=config
-```
-
-## Configuration
-
-Config file `config/bladeFormValidate.php` includes:
-
-```php
-return [
-    // Default Blade view path for extracting validation rules.
-    // If null, the package will infer view path from the route name.
-    'default_form_view' => null,
-];
-```
-Set this to your default form view (e.g. `'forms.register'`) if you want.
-
 ## Usage
 
-### 1. Using the built-in FormRequest
+### 1. Defining Validation Rules in Blade Views
+Add `validated` attributes to your form inputs:
+
+```php
+<form method="POST" action="{{ route('register.form') }}">
+    @csrf
+
+    <input 
+        type="text"
+        name="name"
+        validated="required|string|max:255" 
+    />
+
+    <input
+        type="email"
+        name="email"
+        validated="required|email|unique:users,email"
+    />
+
+    <input 
+        type="password" 
+        name="password" 
+        validated="required|string|min:8|confirmed" 
+        placeholder="Enter Password"
+    />
+
+    <input 
+        type="password" 
+        name="password_confirmation" 
+        validated="required|string|min:8" 
+        placeholder="Confirm Password"
+    />
+    <button type="submit">Register</button>
+</form>
+```
+
+### 2. Using the built-in FormRequest
 Use the provided FormRequest class in your controller methods to validate input automatically.
 
 ```php
@@ -56,33 +73,12 @@ class RegisterController extends Controller
     public function store(BladeFormValidateRequest $request)
     {
         // Validation is automatically performed based on your form's Blade view rules
-        ˜
+
         $validated = $request->validated();
 
         // Proceed with validated data...
     }
 }
-
-```
-
-### 2. Defining Validation Rules in Blade Views
-Add `validated` attributes to your form inputs:
-
-```php
-
-<form method="POST" action="{{ route('register.store') }}">
-    @csrf
-
-    <input type="text" name="name" validated="required|string|max:255" />
-
-    <input type="email" name="email" validated="required|email|unique:users,email" />
-
-    <input type="password" name="password" validated="required|string|min:8|confirmed" />
-
-    <input type="password" name="password_confirmation" validated="required|string|min:8" />
-
-    <button type="submit">Register</button>
-</form>
 ```
 
 ### 3. Route Default `formView` Syntax
@@ -91,7 +87,7 @@ If you need to explicitly specify a form view for a route, use **route defaults*
 
 ```php
 Route::post('/register', [RegisterController::class, 'store'])
-    ->name('register.store')
+    ->name('register.form')
     ->defaults('formView', 'forms.register');
 ```
 
@@ -125,15 +121,6 @@ public function store(RegisterFormRequest $request)
 - It parses all `<input>`, `<textarea>`, and `<select>` elements to extract `name` and `validated` attributes.
 - Converts array-style input names like `user[email]` to dot notation (`user.email`).
 - Uses Laravel’s validation engine with the extracted rules.
-
-
-## Publishing Config
-
-You can publish and customize the config file with:
-
-```bash
-php artisan vendor:publish --tag=config
-```
 
 ### License
 
