@@ -1,6 +1,6 @@
 {
     "name": "proghasan/blade-form-validator",
-    "description": "Validate Laravel forms, from Blade views.",
+    "description": "Validate Laravel forms, from Blade files",
     "type": "library",
     "license": "MIT",
     "require": {
