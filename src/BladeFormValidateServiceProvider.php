@@ -18,7 +18,6 @@ class BladeFormValidateServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Merge package config with the application's config
-        $this->mergeConfigFrom(__DIR__.'/../config/bladeFormValidate.php', 'bladeFormValidate');
     }
 
     /**
@@ -35,8 +34,5 @@ class BladeFormValidateServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Publish the configuration file to the application's config directory
-        $this->publishes([
-            __DIR__.'/../config/bladeFormValidate.php' => config_path('bladeFormValidate.php'),
-        ], 'config');
     }
 }

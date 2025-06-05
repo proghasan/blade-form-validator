@@ -22,8 +22,7 @@ class BladeFormValidateRequest extends FormRequest
      * Determines which Blade view to use for extracting validation rules.
      * Priority:
      *  1. Route default parameter 'formView'
-     *  2. Config value 'bladevalidate.default_form_view'
-     *  3. Default view inferred from the current route name
+     *  2. Default view inferred from the current route name
      *
      * Called automatically before validation rules are resolved.
      *
@@ -31,7 +30,7 @@ class BladeFormValidateRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        $this->formView = $this->route()->defaults['formView'] ?? config('bladevalidate.default_form_view') ?? $this->getDefaultView();
+        $this->formView = $this->route()->defaults['formView'] ?? $this->getDefaultView();
     }
 
     /**
